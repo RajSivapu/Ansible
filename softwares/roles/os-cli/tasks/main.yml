@@ -1,0 +1,12 @@
+---
+- name: Copying openshift cli zip
+  copy: src=oc-3.2.1.15-linux.tar.gz dest=/opt/
+- name: Extract archive
+  command: tar xvf /opt/oc-3.2.1.15-linux.tar.gz -C /opt/
+- name: "Changing Permissions"
+  file: path=/opt/oc-cli owner=root group=root mode=0755 state=directory recurse=yes
+- name: Copying oc-cli to environmental variables path
+  command: cp -r /opt/oc-cli/oc /usr/bin
+  with_items:
+   - "oc"
+   

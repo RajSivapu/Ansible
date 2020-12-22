@@ -1,0 +1,1 @@
+This ansible code is to install softwares like aws-cli, java, maven, os-cli, wget

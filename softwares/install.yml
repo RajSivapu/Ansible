@@ -1,0 +1,17 @@
+---
+- name: Slave with custom configuration
+  hosts: run-server
+
+  roles:
+    - wget
+    - aws-cli
+    - java
+    - maven
+    - os-cli
+
+  environment:
+    http_proxy: 
+    https_proxy:
+  become: yes
+  become_method: sudo
+  become_user: root

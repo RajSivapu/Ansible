@@ -1,0 +1,25 @@
+---
+- name: Copying Maven 3.3.9
+  copy: src=apache-maven dest=/usr/share/ mode=0755
+  
+- name: Creating Symbolic link
+  file:
+    state: link
+    force: true
+    src: "/usr/share/apache-maven/bin/mvn"
+    dest: "/usr/bin/mvn"
+
+- name: Remove old path configuration
+  file:
+    path: /etc/profile.d/maven.sh
+    state: absent
+
+- name: Maven path configuration
+  lineinfile:
+    dest: /etc/profile.d/maven.sh
+    line: '{{ item.line }}'
+    create: yes
+    state: present
+  with_items:
+    - { line: 'M2_HOME=/usr/share/apache-maven' }
+    - { line: 'PATH=$PATH:$M2_HOME/bin' }

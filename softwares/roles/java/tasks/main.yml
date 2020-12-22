@@ -1,0 +1,16 @@
+--- 
+- 
+  name: "Install Java 1.8"
+  yum: "name=java-1.8.0-openjdk state=present"
+- 
+  name: "Copy jdk-1.8(For Jenkins slave)"
+  copy: "src=jdk-8u101-linux-x64.tar.gz dest=/opt/ mode=0777"
+- 
+  name: "Extract archive"
+  command: "tar xvf /opt/jdk-8u101-linux-x64.tar.gz -C /opt/ creates=/opt/jdk1.8.0_101" 
+-
+  name: "Changing Permissions"
+  file: path=/opt/jdk1.8.0_101 owner=root group=root state=directory recurse=yes
+-
+  name: "Adding JAVA_HOME to /etc/enviroment"
+  command: sh -c "echo export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.161-0.b14.el7_4.x86_64/jre/ >> /etc/environment"

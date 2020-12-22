@@ -1,0 +1,4 @@
+---
+- name: Install wget package (RHEL)
+  yum: name=wget state=installed
+

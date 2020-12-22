@@ -1,0 +1,14 @@
+---
+- name: Copy the awscli bundle.
+  copy: src=awscli-bundle.zip dest=/tmp
+
+- name: "Install zip and unzip"
+  command: "yum install zip unzip -y"
+
+- name: Unarchive the installer.
+  unarchive: src=/tmp/awscli-bundle.zip dest=/tmp copy=no creates=/tmp/awscli-bundle
+
+- name: Install awscli package.
+  shell: python /tmp/awscli-bundle/install -i /usr/local/aws -b /usr/bin/aws
+  args:
+    creates: /usr/bin/aws
